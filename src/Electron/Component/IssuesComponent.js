@@ -711,7 +711,11 @@ export default class IssuesComponent extends React.Component {
         if (issue.closed_at === null) {
           return '../image/icon_pr_open.svg';
         } else {
-          return '../image/icon_pr_close.svg';
+          if (issue.merged_at === null) {
+            return '../image/icon_pr_close.svg';
+          } else {
+            return '../image/icon_pr_merged.svg';
+          }
         }
       }
     }
