@@ -41,6 +41,7 @@ export class IssuesTable {
         issue.created_at,
         issue.updated_at,
         issue.closed_at ? issue.closed_at : null,
+        issue.merged_at ? issue.merged_at : null,
         currentIssue ? currentIssue.read_at : defaultReadAt,
         issue.number,
         user,
@@ -66,6 +67,7 @@ export class IssuesTable {
             created_at = ?,
             updated_at = ?,
             closed_at = ?,
+            merged_at = ?,
             read_at = ?,
             number = ?,
             user = ?,
@@ -94,6 +96,7 @@ export class IssuesTable {
               created_at,
               updated_at,
               closed_at,
+              merged_at,
               read_at,
               number,
               user,
@@ -108,7 +111,7 @@ export class IssuesTable {
               value
             )
           values
-            (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `, params);
 
         if (!defaultReadAt) updatedIds.push(issue.id);

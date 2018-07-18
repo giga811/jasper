@@ -134,6 +134,17 @@ export class Bootstrap {
       }
     }
 
+    // migration to v0.4.1 from v0.4.0
+    {
+      try {
+        await DB.exec('select merged_at from issues limit 1');
+      } catch(e) {
+        Logger.d('start migration: merged_at');
+        await DB.exec('alter table issues add column merged_at text');
+        Logger.d('end migration: merged_at');
+      }
+    }
+
     await DB.exec(`create index if not exists type_index on issues(type)`);
     await DB.exec(`create index if not exists title_index on issues(title)`);
     await DB.exec(`create index if not exists read_at_index on issues(read_at)`);
